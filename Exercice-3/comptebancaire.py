@@ -3,14 +3,14 @@ import random
 from datetime import datetime, date 
 
 class CompteBancaire: 
-    __somme_soldes_clients = 0  # augmenté à chaque création de compte
+    __somme_tous_soldes = 0  # Total de tous les soldes des comptes clients
     
     def __init__(self, date_creation: str, client: Client, solde: float) -> None:
         self.date_creation = self.verifier_date(date_creation) # vérifier le format et validité de la date
         self.client = client
         self.solde = solde
         self.id = self.generer_ID(self.date_creation) # créer un identifiant unique
-        CompteBancaire.__somme_soldes_clients += self.solde # augmenter la propriété statique de la somme de tous les comptes
+        CompteBancaire.__somme_tous_soldes += self.solde # augmenter la propriété statique de la somme de tous les comptes
         
     def verifier_date(self, date_creation: str) -> date:
         """Vérifier que la date est dans le format YYYY-MM-DD et que la date n'est pas plus tard qu'aujorud'hui.
@@ -19,8 +19,8 @@ class CompteBancaire:
             date_creation (str): date de création de compte en format YYYY-MM-DD
             
         Raises:
-            ValueError: si le format de la date n'est pas correct ou la date est ultérieur à aujourd'hui
-
+            ValueError: La date de création de compte ne peut pas être ultérieur à aujourd'hui.
+            
         Returns:
             date: date objet de la date de création
         """
@@ -42,14 +42,21 @@ class CompteBancaire:
         """
         id = ""
         for i in range(0,4):
-            id += random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ") # ajoute 4 lettres majuscules aléatoires à id
+            # ajoute 4 lettres majuscules aléatoires à id
+            id += random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ") 
         id += f"{date_creation.strftime('%d')}{date_creation.strftime('%m')}{date_creation.strftime('%Y')}" # ajoute la date au bon format
         return id
     
     def __eq__(self, other: object) -> bool:
+        # deux comptes sont considérés égaux si leur soldes sont égaux
         return self.solde == other.solde
     
     @classmethod
     def somme_soldes_clients(cls):
-        return CompteBancaire.__somme_soldes_clients
+        """Affiche la somme de tous les soldes clients. 
+
+        Returns:
+            float: l'attribut de classe 'privé' __somme_tous_soldes
+        """
+        return CompteBancaire.__somme_tous_soldes
     

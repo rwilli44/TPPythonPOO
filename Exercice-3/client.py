@@ -1,6 +1,8 @@
 import re
 
 class Client:
+    """Cette classe représente des clients d'une banque"""
+    
     def __init__(self, nom: str, prenom: str, adresse: str, numero_secu: str) -> None:
         self.nom = nom
         self.prenom = prenom
@@ -20,7 +22,7 @@ class Client:
         Returns:
             str: le numéro de sécurité social validé
         """
-        if re.match("^[0-9]{15}$", numero_secu): # regex pour vérifier le longeur et le contenu
+        if re.match("^[0-9]{15}$", numero_secu): 
             return numero_secu
         else:
             raise ValueError("Le numéro de sécurité sociale doit être composé de 15 chiffres.")
