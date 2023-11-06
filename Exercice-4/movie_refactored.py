@@ -64,7 +64,7 @@ class Movie:
             with open(Movie.json_file, "r") as f:
                 json_movies = json.load(f) 
                 for i, movie in enumerate(json_movies["movies"]):
-                    # if an entry already exists with the same name and date, the dubplicate is not added
+                    # if an entry already exists with the same name and date, the duplicate is not added
                     if not Movie.check_for_duplicates(movie['_Movie__title'], movie['_Movie__release_date']): 
                         Movie(movie['_Movie__title'], movie['_Movie__release_date'],movie['_Movie__summary'])
         except FileNotFoundError:
@@ -73,7 +73,7 @@ class Movie:
             print("\nThe JSON file for the movie collection is currently empty. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
     
     @staticmethod
-    def check_for_duplicates(title: str, release_date: str) -> bool:
+    def check_for_duplicates(movie_title: str, release_date: str) -> bool:
         """Compares a movie title and release date to those already in the movie collection. 
         Returns True if a duplicate is found.
 
@@ -85,7 +85,7 @@ class Movie:
             bool: True if a dupublicate is found, False if not
         """
         for movie in Movie.movie_collection:
-            if title == movie.title and release_date == movie.release_date:
+            if movie_title.lower() == movie.title.lower() and release_date == movie.release_date:
                 return True
         return False
             
