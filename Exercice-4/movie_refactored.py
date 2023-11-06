@@ -69,7 +69,7 @@ class Movie:
                 for i, movie in enumerate(json_movies["movies"]):
                     # if an entry already exists with the same name and date, the dubplicate is not added
                     if not Movie.check_for_duplicates(movie['title'], movie['_Movie__release_date']): 
-                        Movie(movie['title'], movie['_Movie__release_date'],movie['_Movie__summary'])
+                        Movie(movie['title'], movie['_Movie__release_date'],movie['summary'])
         except FileNotFoundError:
             print("\nNo JSON file for the movie collection was found. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
         except json.JSONDecodeError: 
@@ -299,7 +299,7 @@ class Movie:
             cls.movie_collection.remove(target_movie) 
             
             # select which part of the Movie data will be updated      
-            selected_section = input(f"\nWhat part of the movie information would you like to edit? Enter the corresponding number.\n1 - Title: {target_movie.title}\n2 - Release Date: {target_movie._Movie__release_date}\n3 - Summary: {target_movie._Movie__summary} \nChoice: ")
+            selected_section = input(f"\nWhat part of the movie information would you like to edit? Enter the corresponding number.\n1 - Title: {target_movie.title}\n2 - Release Date: {target_movie._Movie__release_date}\n3 - Summary: {target_movie.summary} \nChoice: ")
             
             match selected_section:
                 case "1":
@@ -319,16 +319,16 @@ class Movie:
                     new_info = input("Enter the summary. Remember, No Spoilers!\nSummary:  ")
                     confirm_change = input(f"The new summary is '{new_info}'. Is this correct?\nY/N: ")
                     if confirm_change.lower() == "y":
-                        target_movie._Movie__summary = new_info
+                        target_movie.summary = new_info
                 case _:
                     print("Invalid input. Try again and be careful to only enter one choice of section to edit (1,2 or 3)") 
                     
             # check that the update does not create two entries with the same title/date        
             if not Movie.check_for_duplicates(target_movie.title, target_movie._Movie__release_date):
                 # if no duplicate is found, a new Movie object is created and the JSON file updated
-                Movie(target_movie.title, target_movie._Movie__release_date, target_movie._Movie__summary)
+                Movie(target_movie.title, target_movie._Movie__release_date, target_movie.summary)
                 cls.update_json()
-                print(f"\nUpdate Successful:\n\n{target_movie.title}, {target_movie._Movie__release_date}\n{target_movie._Movie__summary}\n")
+                print(f"\nUpdate Successful:\n\n{target_movie.title}, {target_movie._Movie__release_date}\n{target_movie.summary}\n")
             elif Movie.check_for_duplicates(target_movie.title, target_movie._Movie__release_date):
                 # if a duplicate is found, the copy of the original Movie object is added back to movie_collection
                 cls.movie_collection.append(copy_target_movie)

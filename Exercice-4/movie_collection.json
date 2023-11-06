@@ -2,47 +2,47 @@
   "movies": [
     {
       "title": "Star Wars: Episode Iv - A New Hope",
-      "_Movie__summary": "Luke Skywalker joins forces with Princess Leia and Han Solo to battle the evil Empire, and try to stop them from building a massive space station capable of destroying entire planets.",
+      "summary": "Luke Skywalker joins forces with Princess Leia and Han Solo to battle the evil Empire, and try to stop them from building a massive space station capable of destroying entire planets.",
       "_Movie__release_date": "25/05/1977"
     },
     {
       "title": "Star Wars: Episode V - The Empire Strikes Back",
-      "_Movie__summary": "The Rebel Alliance is on the run as the Empire strikes back. Luke seeks guidance from Jedi Master Yoda while his friends are pursued by Darth Vader.",
+      "summary": "The Rebel Alliance is on the run as the Empire strikes back. Luke seeks guidance from Jedi Master Yoda while his friends are pursued by Darth Vader.",
       "_Movie__release_date": "21/05/1980"
     },
     {
       "title": "Star Wars: Episode I - The Phantom Menace",
-      "_Movie__summary": "The Galactic Republic is threatened by the Trade Federation, and two Jedi Knights discover a young Anakin Skywalker who has the potential to become a powerful Jedi.",
+      "summary": "The Galactic Republic is threatened by the Trade Federation, and two Jedi Knights discover a young Anakin Skywalker who has the potential to become a powerful Jedi.",
       "_Movie__release_date": "19/05/1999"
     },
     {
       "title": "Star Wars: Episode Vi - Return Of The Jedi",
-      "_Movie__summary": "Luke Skywalker confronts his father, Darth Vader, and the Emperor to try to turn him back to the light side of the Force, while the Rebel Alliance launches an assault on the second Death Star.",
+      "summary": "Luke Skywalker confronts his father, Darth Vader, and the Emperor to try to turn him back to the light side of the Force, while the Rebel Alliance launches an assault on the second Death Star.",
       "_Movie__release_date": "25/05/1983"
     },
     {
       "title": "Star Wars: Episode Ii - Attack Of The Clones",
-      "_Movie__summary": "Anakin Skywalker becomes a Jedi apprentice, and he and Padm\u00c3\u00a9 Amidala confront a separatist movement that threatens the galaxy.",
+      "summary": "Anakin Skywalker becomes a Jedi apprentice, and he and Padm\u00c3\u00a9 Amidala confront a separatist movement that threatens the galaxy.",
       "_Movie__release_date": "16/05/2002"
     },
     {
       "title": "Star Wars: Episode Iii - Revenge Of The Sith",
-      "_Movie__summary": "The Republic becomes the Galactic Empire, and Anakin Skywalker turns to the dark side, becoming Darth Vader, while the Jedi are nearly wiped out.",
+      "summary": "The Republic becomes the Galactic Empire, and Anakin Skywalker turns to the dark side, becoming Darth Vader, while the Jedi are nearly wiped out.",
       "_Movie__release_date": "19/05/2005"
     },
     {
       "title": "Star Wars: Episode Vii - The Force Awakens",
-      "_Movie__summary": "Three decades after the defeat of the Empire, a new threat arises in the form of the First Order, and a new generation of heroes must confront it.",
+      "summary": "Three decades after the defeat of the Empire, a new threat arises in the form of the First Order, and a new generation of heroes must confront it.",
       "_Movie__release_date": "18/12/2015"
     },
     {
       "title": "Star Wars: Episode Viii - The Last Jedi",
-      "_Movie__summary": "Rey seeks guidance from Luke Skywalker, while the Resistance faces the First Order. Kylo Ren struggles with his own path.",
+      "summary": "Rey seeks guidance from Luke Skywalker, while the Resistance faces the First Order. Kylo Ren struggles with his own path.",
       "_Movie__release_date": "15/12/2017"
     },
     {
       "title": "Star Wars: Episode Ix - The Rise Of Skywalker",
-      "_Movie__summary": "The Resistance battles the First Order once more as Rey, Finn, and Poe Dameron continue their journey to discover the truth about the Skywalker legacy.",
+      "summary": "The Resistance battles the First Order once more as Rey, Finn, and Poe Dameron continue their journey to discover the truth about the Skywalker legacy.",
       "_Movie__release_date": "20/12/2019"
     }
   ]
