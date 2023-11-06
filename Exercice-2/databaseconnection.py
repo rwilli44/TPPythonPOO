@@ -3,6 +3,7 @@ from typing import ClassVar
 
 @dataclass
 class DatabaseConnection:
+    """Cette classe représente des connexions aux bases de données et compte le nombre de connexions actuelles"""
     type_db: str 
     utilisateur: str
     mot_de_passe: str
@@ -10,13 +11,12 @@ class DatabaseConnection:
     nb_instance: ClassVar[int] = 0
     
     def __post_init__(self):
-        """Cette fonctionne est appélé après l'initialisation de l'instance. Pour cette classe elle est utiliser pour ajouter la nouvelle connection au comptage de la variable statique nb_instance.        
-        """
+        # Ajouter chaque nouvelle connexion au compteur des connections actuelles. 
         DatabaseConnection.nb_instance += 1
     
     @staticmethod
     def nombre_instances():
-        """Permet d'afficher le nombre de connections de bases de données instanciées.
+        """Permet d'afficher le nombre de connexions de bases de données instanciées.
 
         Returns:
             str: Une phrase qui présente le nombre d'instances
