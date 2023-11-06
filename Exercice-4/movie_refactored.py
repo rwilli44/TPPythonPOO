@@ -68,8 +68,8 @@ class Movie:
                 json_movies = json.load(f) 
                 for i, movie in enumerate(json_movies["movies"]):
                     # if an entry already exists with the same name and date, the dubplicate is not added
-                    if not Movie.check_for_duplicates(movie['title'], movie['_Movie__release_date']): 
-                        Movie(movie['title'], movie['_Movie__release_date'],movie['summary'])
+                    if not Movie.check_for_duplicates(movie['title'], movie['release_date']): 
+                        Movie(movie['title'], movie['release_date'],movie['summary'])
         except FileNotFoundError:
             print("\nNo JSON file for the movie collection was found. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
         except json.JSONDecodeError: 
@@ -88,7 +88,7 @@ class Movie:
             bool: True if a dupublicate is found, False if not
         """
         for movie in cls.movie_collection:
-            if title == movie.title and release_date == movie._Movie__release_date:
+            if title == movie.title and release_date == movie.release_date:
                 return True
         return False
             
@@ -169,7 +169,7 @@ class Movie:
         if target_movie is not None:
             cls.movie_collection.remove(target_movie) # remove the object from the movie_collection list 
             cls.update_json() # the new movie_collection list is saved to JSON
-            print(f"\n{target_movie.title} released on {target_movie._Movie__release_date} was successfully removed from the collection.")
+            print(f"\n{target_movie.title} released on {target_movie.release_date} was successfully removed from the collection.")
     
     @classmethod
     def get_movie_for_UD(cls, operation: str) -> Self:
@@ -212,7 +212,7 @@ class Movie:
                 target_movie = search_results[movie_selected-1] # 1 is subtracted from the user input to find the correct index
         
         # user is asked to confirm their choice and the selected movie is returned 
-        confirmation = input(f"\nAre you sure you want to {operation} {target_movie.title} released on {target_movie._Movie__release_date} ?\n\nType Y to confirm your choice or any other character to return to the main menu.\nConfirmation ? ")
+        confirmation = input(f"\nAre you sure you want to {operation} {target_movie.title} released on {target_movie.release_date} ?\n\nType Y to confirm your choice or any other character to return to the main menu.\nConfirmation ? ")
         if confirmation.lower() == 'y':
             return target_movie
         else:
@@ -264,7 +264,7 @@ class Movie:
         try:
                 date_format = '%d/%m/%Y'
                 # in order to sort by date, the date string for each object is converted into a date() object using the given date_format
-                sorted_movie_collection = sorted(cls.movie_collection, key=lambda x: datetime.strptime(x._Movie__release_date, date_format))
+                sorted_movie_collection = sorted(cls.movie_collection, key=lambda x: datetime.strptime(x.release_date, date_format))
         except: # if a movie's date is not in the correct format, it will raise an error and the unsorted list will be returned
                 sorted_movie_collection = cls.movie_collection
                 print("\nSorry the movies aren't in chronological order, one of the dates is an incorrect format. Please inform the developer so this can be corrected!\n")
@@ -299,7 +299,7 @@ class Movie:
             cls.movie_collection.remove(target_movie) 
             
             # select which part of the Movie data will be updated      
-            selected_section = input(f"\nWhat part of the movie information would you like to edit? Enter the corresponding number.\n1 - Title: {target_movie.title}\n2 - Release Date: {target_movie._Movie__release_date}\n3 - Summary: {target_movie.summary} \nChoice: ")
+            selected_section = input(f"\nWhat part of the movie information would you like to edit? Enter the corresponding number.\n1 - Title: {target_movie.title}\n2 - Release Date: {target_movie.release_date}\n3 - Summary: {target_movie.summary} \nChoice: ")
             
             match selected_section:
                 case "1":
@@ -314,7 +314,7 @@ class Movie:
                     if Movie.verify_date(new_info):
                         confirm_change = input(f"The new release date is '{new_info}'. Is this correct?\nY/N: ")
                         if confirm_change.lower() == "y":
-                            target_movie._Movie__release_date = new_info
+                            target_movie.release_date = new_info
                 case "3":
                     new_info = input("Enter the summary. Remember, No Spoilers!\nSummary:  ")
                     confirm_change = input(f"The new summary is '{new_info}'. Is this correct?\nY/N: ")
@@ -324,19 +324,19 @@ class Movie:
                     print("Invalid input. Try again and be careful to only enter one choice of section to edit (1,2 or 3)") 
                     
             # check that the update does not create two entries with the same title/date        
-            if not Movie.check_for_duplicates(target_movie.title, target_movie._Movie__release_date):
+            if not Movie.check_for_duplicates(target_movie.title, target_movie.release_date):
                 # if no duplicate is found, a new Movie object is created and the JSON file updated
-                Movie(target_movie.title, target_movie._Movie__release_date, target_movie.summary)
+                Movie(target_movie.title, target_movie.release_date, target_movie.summary)
                 cls.update_json()
-                print(f"\nUpdate Successful:\n\n{target_movie.title}, {target_movie._Movie__release_date}\n{target_movie.summary}\n")
-            elif Movie.check_for_duplicates(target_movie.title, target_movie._Movie__release_date):
+                print(f"\nUpdate Successful:\n\n{target_movie.title}, {target_movie.release_date}\n{target_movie.summary}\n")
+            elif Movie.check_for_duplicates(target_movie.title, target_movie.release_date):
                 # if a duplicate is found, the copy of the original Movie object is added back to movie_collection
                 cls.movie_collection.append(copy_target_movie)
-                print(f"\n{target_movie.title} released on {target_movie._Movie__release_date} was not changed because another movie in the collection has the same title and date. \nPlease verify which entry is correct and delete the duplicate.\n")
+                print(f"\n{target_movie.title} released on {target_movie.release_date} was not changed because another movie in the collection has the same title and date. \nPlease verify which entry is correct and delete the duplicate.\n")
             else:
                 # if the update is abandoned for any other reason, the copy of the original Movie object is added back to movie_collection
                 cls.movie_collection.append(copy_target_movie)
-                print(f"\n{target_movie.title} released on {target_movie._Movie__release_date} was not changed.\n")
+                print(f"\n{target_movie.title} released on {target_movie.release_date} was not changed.\n")
         
     
         
