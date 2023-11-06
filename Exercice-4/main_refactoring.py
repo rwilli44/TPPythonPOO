@@ -1,5 +1,4 @@
 from movie_refactored import Movie
-import os
 
 def main():
     """
@@ -15,7 +14,7 @@ def main():
     # the duplicate entry will not load. However, if two entries have the same title and year
     # but different summaries, the second entry will be lost when the JSON file is overwritten 
     # if a movie is created, updated or deleted
-    print(f"\n{len(Movie.movie_collection)} movies were loaded from the JSON file.\n")
+    print(f"\nMovies loaded from the JSON file: {len(Movie.movie_collection)}.\n")
     
     
     while True:
@@ -34,8 +33,8 @@ def main():
             case "4": # Update a movie
                 Movie.update_movie()
             case "5": # Delete a movie
-                Movie.delete_movie()
-                Movie.show_all_movies()
+                if Movie.delete_movie(): # if the delete does not complete, the collection won't display
+                    Movie.show_all_movies()
             case "6": # Exit the program
                 print("\nExiting the program. Goodbye!\n")
                 exit()

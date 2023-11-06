@@ -1,6 +1,5 @@
 import json
 from datetime import datetime, date
-from os import path
 from copy import deepcopy
 from typing import Self
 
@@ -10,8 +9,6 @@ class Movie:
     Class attributes: movie_collection (list), json_file (str)
     
     Instance attributes: title (str), release_date (str - DD/MM/YYYY)
-    
-    Class methods: list here
     """    
     movie_collection = [] # this list will contain all current Movie objects
     json_file = "./Exercice-4/movie_collection.json" 
@@ -107,6 +104,8 @@ class Movie:
         movie_date = input("\nWhat is the release date?\nFormat DD/MM/YYYY: ")
         
         # Verify that the date format is correct and it is in an expected range of dates
+        # This seems redundant with the test in __init__, however identifying an incorrect date
+        # at this stage saves the user time entering a summary which won't be saved 
         if not Movie.verify_date(movie_date): 
             return False
         if Movie.check_for_duplicates(movie_title, movie_date):
@@ -156,13 +155,16 @@ class Movie:
             return False
     
     
-######################################## Other Class Methods in Alphabetical Order ########################################
+######################################## Other Class and Static Methods in Alphabetical Order ########################################
     
     @classmethod
-    def delete_movie(cls):
+    def delete_movie(cls) -> bool:
         """This function allows a user to delete a movie. It calls the function Movie.get_movie_for_UD() 
         passing it the parameter "delete" to allow the user to search for and select the movie they wish to delete. 
         After confirmation, the movie is deleted from the collection and the JSON file is updated by calling Movie.update_json().
+        
+        Returns: 
+            bool: True if successful
         """
         target_movie = Movie.get_movie_for_UD("delete") # returns the Movie object for the movie the user selects
         
@@ -170,6 +172,7 @@ class Movie:
             cls.movie_collection.remove(target_movie) # remove the object from the movie_collection list 
             cls.update_json() # the new movie_collection list is saved to JSON
             print(f"\n{target_movie.title} released on {target_movie.release_date} was successfully removed from the collection.")
+            return True
     
     @staticmethod
     def get_movie_for_UD(operation: str) -> Self:
@@ -184,8 +187,9 @@ class Movie:
         Returns:
             Movie: a Movie object the user has selected to update or delete
         """
+        if len(Movie.movie_collection) > 0:
+            print(f"\nSearch for the movie you would like to {operation}.")
         
-        print(f"\nSearch for the movie you would like to {operation}.")
         search_results = Movie.search_movie() # returns a list of all movies matching the user search terms
         
         if len(search_results) == 0: # if no movies matched the user search, returns None
@@ -248,11 +252,13 @@ class Movie:
     def show_all_movies():
         """ Displays all movies in the collection sorted by date from oldest to newest.
         """       
-        print("\nThe following movies are in our collection: \n")
-        sorted_movie_collection = Movie.sort_by_date()
-        for movie in sorted_movie_collection:
-            print(f"{movie}\n")            
-    
+        if len(Movie.movie_collection) > 0:
+            print("\nThe following movies are in our collection: \n")
+            sorted_movie_collection = Movie.sort_by_date()
+            for movie in sorted_movie_collection:
+                print(f"{movie}\n")            
+        else:
+            print("\nSorry, there are not any files in our collection yet.\n")
     
     @staticmethod
     def sort_by_date() -> list:
