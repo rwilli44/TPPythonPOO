@@ -27,22 +27,29 @@ class Movie:
     def update_json(cls):
         """When a new movie is added or an existing movie is updated or deleted, this function writes the new 'cls.movie_collection' to JSON.
         """
-        with open(cls.json_file, "w") as f:
-            new_movie_collection = {"movies": []}
-            for movie in cls.movie_collection:
-                new_movie_collection['movies'].append(movie.__dict__)
-            json.dump(new_movie_collection, f, indent=4) 
-      
+        try:
+            with open(cls.json_file, "w") as f:
+                new_movie_collection = {"movies": []}
+                for movie in cls.movie_collection:
+                    new_movie_collection['movies'].append(movie.__dict__)
+                json.dump(new_movie_collection, f, indent=4) 
+        except:
+            print("\nThere was an error writing to the JSON file. Check that the file hasn't been deleted by accident or contact the developer to report the error.\n")  
       
 ######################################## Class Methods Necessary for Creating Movie Instances ########################################
 
     @classmethod
     def add_movies_from_JSON(cls):
-        if Movie.verify_json_exists():
+        try:
             with open(cls.json_file, "r+") as f:
                 json_movies = json.load(f) # copy the existing movie collection to a python format
                 for i, movie in enumerate(json_movies["movies"]):
                     Movie(movie['_Movie__title'], movie['_Movie__release_date'],movie['_Movie__summary'])
+        except FileNotFoundError:
+            print("\nNo JSON file for the movie collection was found. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
+        except json.JSONDecodeError: 
+            print("\nThe JSON file for the movie collection is currently empty. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
+            
         
     @classmethod
     def movie_factory(cls) -> object:
