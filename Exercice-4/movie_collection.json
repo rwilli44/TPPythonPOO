@@ -44,6 +44,11 @@
       "_Movie__title": "Star Wars: Episode Ix - The Rise Of Skywalker",
       "_Movie__summary": "The Resistance battles the First Order once more as Rey, Finn, and Poe Dameron continue their journey to discover the truth about the Skywalker legacy.",
       "_Movie__release_date": "20/12/2019"
+    },
+    {
+      "_Movie__title": "Test Title",
+      "_Movie__summary": "summary",
+      "_Movie__release_date": "03/05/2024"
     }
   ]
 }

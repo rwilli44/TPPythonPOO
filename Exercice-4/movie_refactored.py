@@ -57,26 +57,26 @@ class Movie:
         self.__summary = new_summary
     
       
-######################################## Class and Static Methods Necessary for Creating Movie Instances ########################################
+######################################## Static Methods Necessary for Creating Movie Instances ########################################
     
-    @classmethod
-    def add_movies_from_JSON(cls):
+    @staticmethod
+    def add_movies_from_JSON():
         """Function to be run when the program begins to load data from the JSON file and create objects for any movies already in the collection.
         """
         try:
-            with open(cls.json_file, "r") as f:
+            with open(Movie.json_file, "r") as f:
                 json_movies = json.load(f) 
                 for i, movie in enumerate(json_movies["movies"]):
                     # if an entry already exists with the same name and date, the dubplicate is not added
-                    if not Movie.check_for_duplicates(movie['title'], movie['release_date']): 
-                        Movie(movie['title'], movie['release_date'],movie['summary'])
+                    if not Movie.check_for_duplicates(movie['_Movie__title'], movie['_Movie__release_date']): 
+                        Movie(movie['_Movie__title'], movie['_Movie__release_date'],movie['_Movie__summary'])
         except FileNotFoundError:
             print("\nNo JSON file for the movie collection was found. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
         except json.JSONDecodeError: 
             print("\nThe JSON file for the movie collection is currently empty. If you believe this is an error, contact the developer.\nOtherwise, maybe you would like to add a movie to the collection ?\n")
     
-    @classmethod
-    def check_for_duplicates(cls, title: str, release_date: str) -> bool:
+    @staticmethod
+    def check_for_duplicates(title: str, release_date: str) -> bool:
         """Compares a movie title and release date to those already in the movie collection. 
         Returns True if a duplicate is found.
 
@@ -87,14 +87,14 @@ class Movie:
         Returns:
             bool: True if a dupublicate is found, False if not
         """
-        for movie in cls.movie_collection:
+        for movie in Movie.movie_collection:
             if title == movie.title and release_date == movie.release_date:
                 return True
         return False
             
         
-    @classmethod
-    def create_movie(cls) -> bool:
+    @staticmethod
+    def create_movie() -> bool:
         """Class method to create new instances of Movie based on interactive user input.
         Verifies the date format and checks for duplicates. If there is a duplicate or the date is incorrect,
         the movie is not saved to the collection. If the movie is created, Movie.update_json() is called to
@@ -171,8 +171,8 @@ class Movie:
             cls.update_json() # the new movie_collection list is saved to JSON
             print(f"\n{target_movie.title} released on {target_movie.release_date} was successfully removed from the collection.")
     
-    @classmethod
-    def get_movie_for_UD(cls, operation: str) -> Self:
+    @staticmethod
+    def get_movie_for_UD(operation: str) -> Self:
         """Allows the user to search for the movie they want to update or delete by title and 
         select the correct movie from the returned list of possibilities. Returns the Movie object for 
         the selected movie or None if there was no match or the user did not confirm their choice.
@@ -218,8 +218,8 @@ class Movie:
         else:
             return None
         
-    @classmethod
-    def search_movie(cls) -> list:
+    @staticmethod
+    def search_movie() -> list:
         """Allows the user to search for a film by title
          
         Returns:
@@ -227,7 +227,7 @@ class Movie:
         """
         results = [] 
         
-        if len(cls.movie_collection) == 0:
+        if len(Movie.movie_collection) == 0:
             print("\nSorry, there are not any files in our collection yet.\n")
             
         else:
@@ -244,8 +244,8 @@ class Movie:
                 print("Sorry, no results matched your search terms. We may not have that title in our collection.") 
         return results
     
-    @classmethod
-    def show_all_movies(cls):
+    @staticmethod
+    def show_all_movies():
         """ Displays all movies in the collection sorted by date from oldest to newest.
         """       
         print("\nThe following movies are in our collection: \n")
@@ -254,8 +254,8 @@ class Movie:
             print(f"{movie}\n")            
     
     
-    @classmethod
-    def sort_by_date(cls) -> list:
+    @staticmethod
+    def sort_by_date() -> list:
         """This function sorts the class attribut movie_collection list by date and returns a sorted list to be used when displaying search results or showing all movies.
 
         Returns:
@@ -264,20 +264,20 @@ class Movie:
         try:
                 date_format = '%d/%m/%Y'
                 # in order to sort by date, the date string for each object is converted into a date() object using the given date_format
-                sorted_movie_collection = sorted(cls.movie_collection, key=lambda x: datetime.strptime(x.release_date, date_format))
+                sorted_movie_collection = sorted(Movie.movie_collection, key=lambda x: datetime.strptime(x.release_date, date_format))
         except: # if a movie's date is not in the correct format, it will raise an error and the unsorted list will be returned
-                sorted_movie_collection = cls.movie_collection
+                sorted_movie_collection = Movie.movie_collection
                 print("\nSorry the movies aren't in chronological order, one of the dates is an incorrect format. Please inform the developer so this can be corrected!\n")
         return sorted_movie_collection
 
-    @classmethod
-    def update_json(cls):
+    @staticmethod
+    def update_json():
         """When a new movie is added or an existing movie is updated or deleted, this function writes the new 'cls.movie_collection' to JSON.
         """
         try:
-            with open(cls.json_file, "w") as f:
+            with open(Movie.json_file, "w") as f:
                 new_movie_collection = {"movies": []}
-                for movie in cls.movie_collection:
+                for movie in Movie.movie_collection:
                     new_movie_collection['movies'].append(movie.__dict__)
                 json.dump(new_movie_collection, f, indent=4) 
         except:
@@ -330,7 +330,7 @@ class Movie:
                 cls.update_json()
                 print(f"\nUpdate Successful:\n\n{target_movie.title}, {target_movie.release_date}\n{target_movie.summary}\n")
             elif Movie.check_for_duplicates(target_movie.title, target_movie.release_date):
-                # if a duplicate is found, the copy of the original Movie object is added back to movie_collection
+                # if a duplicate is found, the copy of the original Movie object is added back to movie_collection and user is informed of the duplicate
                 cls.movie_collection.append(copy_target_movie)
                 print(f"\n{target_movie.title} released on {target_movie.release_date} was not changed because another movie in the collection has the same title and date. \nPlease verify which entry is correct and delete the duplicate.\n")
             else:
