@@ -24,7 +24,7 @@ Pour les tests, j'ai montré les différents erreurs provoqués par les mauvais 
 
 Après avoir réussi le MVP, je me suis permis de bien m'amuser avec cet exercice. J'ai ajouté des fonctionnalités pour vérifier que les dates ne sont pas seulement au bon format, mais aussi logique. Pour la date limite, j'ai mis aujourd'hui + 1 an en disant que selon le but de la collection, ça pourrait être intéressant d'inclure les films qui sort bientôt mais surtout pour tester comment créer un objet Date pour une date à venir.
 
-J'ai aussi ajouté une fonctionnalité pour éviter d'avoir deux objets Movie avec les mêmes titres et dates.
+J'ai aussi ajouté une fonctionnalité pour éviter d'avoir deux objets Movie avec les mêmes titres et dates. Du coup, dans le JSON il y a deux fois "The Rise of Skywalker" et sur main ça affiche le nombre de Movies ajoutés pour voir qu'il n'y a que 9 objets créés malgré les 10 titres dans le JSON. A noter que dès la 1e sauvegarde de nouvelles informations dans le JSON, le 2e dictionnaire avec ce titre sera perdu même si le résumé du film n'est pas pareil.
 
 J'ai testé le tout avec un json vide, un json rempli, et un json inexistant. Du coup, je te laissi ici le JSON rempli et pour créer ces données j'ai donné le format JSON à ChatGPT et l'a demandé de me faire une liste de films avec le même format (pour éviter de perdre mon temps à chercher des années de sorti ou avoir un JSON avec les titres et dates imaginaires).
 
